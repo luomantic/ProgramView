@@ -9,23 +9,24 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 /**
+ * 单个分区的节目视图
  * 自定义组合控件 - 包含一个自定义MarqueeTextView + ImageView + VideoView
  * TODO: 我擦MarqueeTextView出不来
  */
-public class ProgramView extends RelativeLayout {
+public class SinglePartitionView extends RelativeLayout {
     private TextView textView;
     private ImageView imageView;
     private VideoView videoView;
 
-    public ProgramView(Context context) {
+    public SinglePartitionView(Context context) {
         this(context, null);
     }
 
-    public ProgramView(Context context, AttributeSet attrs) {
+    public SinglePartitionView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public ProgramView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SinglePartitionView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView(context);
     }

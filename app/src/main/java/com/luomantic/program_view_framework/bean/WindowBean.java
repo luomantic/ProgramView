@@ -14,6 +14,8 @@ public class WindowBean {
     private int itemListPosition; // 标记item列表的位置
     private int count; // item 列表播已播放完几次
     private boolean isMainWindow;
+    private int configType;
+    private int displayTime;
 
     public int getItemListPosition() {
         return itemListPosition;
@@ -21,6 +23,22 @@ public class WindowBean {
 
     public void setItemListPosition(int curItemPosition) {
         this.itemListPosition = curItemPosition;
+    }
+
+    public int getConfigType() {
+        return configType;
+    }
+
+    public void setConfigType(int configType) {
+        this.configType = configType;
+    }
+
+    public int getDisplayTime() {
+        return displayTime;
+    }
+
+    public void setDisplayTime(int displayTime) {
+        this.displayTime = displayTime;
     }
 
     public int getCount() {
