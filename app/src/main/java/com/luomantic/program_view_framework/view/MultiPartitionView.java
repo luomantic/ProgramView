@@ -2,7 +2,6 @@ package com.luomantic.program_view_framework.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.Gravity;
 import android.widget.RelativeLayout;
 
 import com.luomantic.program_view_framework.bean.ProgramBean;
@@ -28,26 +27,26 @@ public class MultiPartitionView extends RelativeLayout {
     }
 
     private void initView(Context context) {
-        if ( null != programData) {
+        if (null != programBean) {
             for (int i = 0; i < programBean.getWindowList().size(); i++) {
                 WindowBean windowBean = programBean.getWindowList().get(i);
-                if (i==0) {
+                if (i == 0) {
                     if (windowBean.getConfigType() == 0) { // 按次数播放
                         if (windowBean.getDisplayTime() > 0) {
                             // TODO: 2
-                        }else {
+                        } else {
                             // TODO: 提示没有播放次数了
                         }
-                    }else { // 按时间播放
-
+                    } else { // 按时播放
+                        // TODO: 按时间播放
                     }
-                }else {
+                } else {
                     SinglePartitionView singlePartitionView = new SinglePartitionView(context);
                     this.addView(singlePartitionView);
 
                     // 设置窗口位置参数
-                    RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(1,1);
-                    layoutParams.setMargins(1,1,0,0);
+                    RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(1, 1);
+                    layoutParams.setMargins(1, 1, 0, 0);
                     singlePartitionView.setLayoutParams(layoutParams);
 
                     // 2 TODO：根据文本、图片、视频播放结束的监听，循环设置节目参数.
@@ -65,14 +64,11 @@ public class MultiPartitionView extends RelativeLayout {
         }
     }
 
-
     private ProgramBean programBean;
 
-
     //--------------------------- 对外提供的接口方法,各接口可按需拓展 ----------------------------------------
-    private ProgramBean programData;
 
     public void setProgramData(ProgramBean programData) {
-        this.programData = programData;
+        this.programBean = programData;
     }
 }
