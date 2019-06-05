@@ -8,8 +8,8 @@
 
     <com.luomantic.program_view_framework.ui.view.MultiPartitionView
         android:id="@+id/program_layout"
-        android:layout_width="500dp"
-        android:layout_height="500dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:gravity="center"/>
 
     <!--<com.luomantic.program_view_framework.view.ProgramView-->

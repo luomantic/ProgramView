@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //initData();
+        initData();
         initView();
     }
 
@@ -45,14 +45,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-//        multiPartitionView = findViewById(R.id.program_layout);
-
 //        programView = findViewById(R.id.program_view);
 
-        rootLayout = findViewById(R.id.rl_root);
-        MarqueeTextView textView = new MarqueeTextView(this);
-        textView.setText("健身房๑Ő௰Ő๑)曾经瘦过，你也是厉害！副书记阿里阿萨德水电费");
-        rootLayout.addView(textView);
+//        rootLayout = findViewById(R.id.rl_root);
+//        MarqueeTextView textView = new MarqueeTextView(this);
+//        textView.setText("健身房๑Ő௰Ő๑)曾经瘦过，你也是厉害！副书记阿里阿萨德水电费");
+//        rootLayout.addView(textView);
 
 //        programView = new ProgramView(this);
 //        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(200, 100);
@@ -80,10 +78,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         ConfigBean configBean = new Gson().fromJson(json, ConfigBean.class);
-        String filePath = Environment.getExternalStorageDirectory().getPath() + configBean.getWINDOWS().getMAIN_WINDOW().getITEMS().getITEM().get(0).getFILE().getFilename();
-        String s = FileIOUtils.readFile2String(filePath);
-        LogUtils.e(s);
-
         initProgramBean(configBean);
 
         // 将programBean传给multi 测试
@@ -97,6 +91,12 @@ public class MainActivity extends AppCompatActivity {
         addSubWindow(configBean);
 
         programBean.setWindowList(windowList);
+
+        LogUtils.e(programBean.getWindowList().size());
+
+        multiPartitionView = findViewById(R.id.program_layout);
+        multiPartitionView.setProgramBean(programBean);
+        multiPartitionView.setFilePath(Environment.getExternalStorageDirectory().getPath());
     }
 
     private void addSubWindow(ConfigBean configBean) {

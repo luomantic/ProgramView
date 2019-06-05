@@ -18,6 +18,7 @@ import com.luomantic.program_view_framework.ui.bean.WindowBean;
  * ② implementation 'com.github.bumptech.glide:glide:4.9.0'
  *    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
  * ③ implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.16'
+ * TODO: ProgramBean只能通过构造函数传值给该view
  */
 public class MultiPartitionView extends RelativeLayout {
     private Context context;
@@ -193,6 +194,7 @@ public class MultiPartitionView extends RelativeLayout {
 
     public void setProgramBean(ProgramBean programData) {
         this.programBean = programData;
+        requestLayout();
     }
 
     public ProgramBean getProgramBean() {
@@ -203,6 +205,7 @@ public class MultiPartitionView extends RelativeLayout {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
+        requestLayout();
     }
 
     public String getFilePath() {
