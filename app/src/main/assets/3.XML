@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WINDOWS x="0" y="0" w="1280" h="800">
+	<VERSIONINFO version="1.0.0" timeDate="2018-03-02"/>
+	<PROGRAM startDate="2012-06-03" endDate="2035-12-12" nConfigType="0" nDispTimes="100" nweekList="0,1,2,3,4,5,6" PRGORAMNAME="prog003" maCount="1"/>
+	
+	<MAIN_WINDOW>
+		<ZERO x="0" y="0" w="1280" h="80"/>
+		<ITEMS>
+			 <ITEM>
+				<FILE filename="/3/000.txt"  filetype="68"/>
+				<SHOWFORMAT showtype="0" InType="0" inSpeed="4" stayTime="0"/>
+			    <FONTCOLOR fontname="1" fontsize="30" textcolor="33023" backcolor="12023"/>
+			 </ITEM>
+			 <ITEM>
+				<FILE filename="/3/005.txt"  filetype="68"/>
+				<SHOWFORMAT showtype="0" InType="1" inSpeed="2" stayTime="0"/>
+			    <FONTCOLOR fontname="2" fontsize="40" textcolor="12023" backcolor="32145"/>
+			 </ITEM>
+		</ITEMS>
+	</MAIN_WINDOW>
+
+	<SUB_WINDOW>
+			<ZERO x="0" y="80" w="640" h="420"/>
+		<ITEMS>
+			 <ITEM>
+				<FILE filename="/3/003.mp4"  filetype="48"/>
+				<SHOWFORMAT showtype="0" InType="2" inSpeed="16" stayTime="0"/>
+				<FONTCOLOR fontname="" fontsize="0" textcolor="0" backcolor="0"/>
+			 </ITEM>
+			 <ITEM>
+				<FILE filename="/3/004.mp4"  filetype="48"/>
+				<SHOWFORMAT showtype="0" InType="2" inSpeed="16" stayTime="0"/>
+				<FONTCOLOR fontname="" fontsize="0" textcolor="0" backcolor="0"/>
+			 </ITEM>
+		</ITEMS>
+	</SUB_WINDOW>
+	
+    <SUB_WINDOW>
+		<ZERO x="640" y="80" w="640" h="420"/>
+		<ITEMS>
+			<ITEM>
+				<FILE filename="/3/000.txt"  filetype="68"/>
+				<SHOWFORMAT showtype="0" InType="2" inSpeed="3" stayTime="0"/>
+			    <FONTCOLOR fontname="1" fontsize="60" textcolor="33023" backcolor="32145"/>
+			 </ITEM>
+			 <ITEM>
+				<FILE filename="/3/001.JPG"  filetype="48"/>
+				<SHOWFORMAT showtype="0" InType="2" inSpeed="16" stayTime="10"/>
+				<FONTCOLOR fontname="" fontsize="0" textcolor="0" backcolor="0"/>
+			 </ITEM>
+			 <ITEM>
+				<FILE filename="/3/002.gif"  filetype="33"/>
+				<SHOWFORMAT showtype="0" InType="2" inSpeed="16" stayTime="10"/>
+				<FONTCOLOR fontname="" fontsize="0" textcolor="0" backcolor="0"/>
+			 </ITEM>
+			 <ITEM>
+				<FILE filename="/3/003.mp4"  filetype="48"/>
+				<SHOWFORMAT showtype="0" InType="2" inSpeed="16" stayTime="0"/>
+				<FONTCOLOR fontname="" fontsize="0" textcolor="0" backcolor="0"/>
+			 </ITEM>
+		</ITEMS>
+	</SUB_WINDOW>
+	
+	<SUB_WINDOW>
+		<ZERO x="0" y="500" w="640" h="300"/>
+		<ITEMS>
+			 <ITEM>
+				<FILE filename="/3/001.JPG"  filetype="48"/>
+				<SHOWFORMAT showtype="0" InType="2" inSpeed="16" stayTime="10"/>
+				<FONTCOLOR fontname="" fontsize="0" textcolor="0" backcolor="0"/>
+			 </ITEM>
+			 <ITEM>
+				<FILE filename="/3/002.gif"  filetype="33"/>
+				<SHOWFORMAT showtype="0" InType="2" inSpeed="16" stayTime="10"/>
+				<FONTCOLOR fontname="" fontsize="0" textcolor="0" backcolor="0"/>
+			 </ITEM>
+			 <ITEM>
+				<FILE filename="/3/006.gif"  filetype="33"/>
+				<SHOWFORMAT showtype="0" InType="2" inSpeed="16" stayTime="10"/>
+				<FONTCOLOR fontname="" fontsize="0" textcolor="0" backcolor="0"/>
+			 </ITEM>
+			 <ITEM>
+				<FILE filename="/3/007.gif"  filetype="33"/>
+				<SHOWFORMAT showtype="0" InType="2" inSpeed="16" stayTime="10"/>
+				<FONTCOLOR fontname="" fontsize="0" textcolor="0" backcolor="0"/>
+			 </ITEM>
+			 <ITEM>
+				<FILE filename="/3/008.gif"  filetype="33"/>
+				<SHOWFORMAT showtype="0" InType="2" inSpeed="16" stayTime="10"/>
+				<FONTCOLOR fontname="" fontsize="0" textcolor="0" backcolor="0"/>
+			 </ITEM>
+			 <ITEM>
+				<FILE filename="/3/009.gif"  filetype="33"/>
+				<SHOWFORMAT showtype="0" InType="2" inSpeed="16" stayTime="10"/>
+				<FONTCOLOR fontname="" fontsize="0" textcolor="0" backcolor="0"/>
+			 </ITEM>
+		</ITEMS>
+	</SUB_WINDOW>
+	
+	<SUB_WINDOW>
+		<ZERO x="640" y="500" w="640" h="300"/>
+		<ITEMS>
+			 <ITEM>
+				<FILE filename="/3/000.txt"  filetype="68"/>
+				<SHOWFORMAT showtype="0" InType="0" inSpeed="4" stayTime="0"/>
+			    <FONTCOLOR fontname="1" fontsize="30" textcolor="33023" backcolor="12023"/>
+			 </ITEM>
+			 <ITEM>
+				<FILE filename="/3/102.gif"  filetype="33"/>
+				<SHOWFORMAT showtype="0" InType="2" inSpeed="16" stayTime="10"/>
+				<FONTCOLOR fontname="" fontsize="0" textcolor="0" backcolor="0"/>
+			 </ITEM>
+		</ITEMS>
+	</SUB_WINDOW>
+</WINDOWS>

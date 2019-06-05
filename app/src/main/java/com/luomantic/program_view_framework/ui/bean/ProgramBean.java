@@ -1,12 +1,10 @@
-package com.luomantic.program_view_framework.bean;
+package com.luomantic.program_view_framework.ui.bean;
 
 import java.util.List;
 
 public class ProgramBean {
 
     public List<WindowBean> windowList;
-
-    public List<ItemBean> itemList;
 
     public List<WindowBean> getWindowList() {
         return windowList;
@@ -16,11 +14,4 @@ public class ProgramBean {
         this.windowList = windowList;
     }
 
-    public List<ItemBean> getItemList() {
-        return itemList;
-    }
-
-    public void setItemList(List<ItemBean> itemList) {
-        this.itemList = itemList;
-    }
 }

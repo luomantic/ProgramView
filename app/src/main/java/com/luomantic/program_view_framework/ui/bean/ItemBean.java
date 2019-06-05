@@ -1,8 +1,5 @@
-package com.luomantic.program_view_framework.bean;
+package com.luomantic.program_view_framework.ui.bean;
 
-/**
- * 窗口中的Item基类，一个window中可以有多个item
- */
 public class ItemBean {
 
     private int inType;

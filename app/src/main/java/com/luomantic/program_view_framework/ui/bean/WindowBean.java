@@ -1,28 +1,26 @@
-package com.luomantic.program_view_framework.bean;
+package com.luomantic.program_view_framework.ui.bean;
 
-/**
- * 窗口基类
- * window分为主window与子window
- */
+import java.util.List;
+
 public class WindowBean {
 
     private int marginLeft;
     private int marginTop;
     private int width;
     private int height;
-    private int itemSize;
-    private int itemListPosition; // 标记item列表的位置
-    private int count; // item 列表播已播放完几次
-    private boolean isMainWindow;
-    private int configType;
-    private int displayTime;
+    private int itemIndex; // 标记item列表的位置 这个也可以
+    private int playedTimes; // item 列表播已播放完几次
+    private boolean isMainWindow; // 是否是主分区
+    private int configType; // 播放类型，按时间播放或按次数播放
+    private int displayTime; // 播放次数或时间
+    private List<ItemBean> itemList; // 每个window包含多个item
 
-    public int getItemListPosition() {
-        return itemListPosition;
+    public int getItemIndex() {
+        return itemIndex;
     }
 
-    public void setItemListPosition(int curItemPosition) {
-        this.itemListPosition = curItemPosition;
+    public void setItemIndex(int itemIndex) {
+        this.itemIndex = itemIndex;
     }
 
     public int getConfigType() {
@@ -41,12 +39,12 @@ public class WindowBean {
         this.displayTime = displayTime;
     }
 
-    public int getCount() {
-        return count;
+    public int getPlayedTimes() {
+        return playedTimes;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void setPlayedTimes(int playedTimes) {
+        this.playedTimes = playedTimes;
     }
 
     public int getMarginLeft() {
@@ -81,19 +79,19 @@ public class WindowBean {
         this.height = height;
     }
 
-    public int getItemSize() {
-        return itemSize;
-    }
-
-    public void setItemSize(int itemSize) {
-        this.itemSize = itemSize;
-    }
-
     public boolean isMainWindow() {
         return isMainWindow;
     }
 
     public void setMainWindow(boolean mainWindow) {
         isMainWindow = mainWindow;
+    }
+
+    public List<ItemBean> getItemList() {
+        return itemList;
+    }
+
+    public void setItemList(List<ItemBean> itemList) {
+        this.itemList = itemList;
     }
 }

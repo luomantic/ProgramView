@@ -3,11 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     tools:context=".act.MainActivity"
     android:id="@+id/rl_root">
 
-    <com.luomantic.program_view_framework.view.MultiPartitionView
+    <com.luomantic.program_view_framework.ui.view.MultiPartitionView
         android:id="@+id/program_layout"
         android:layout_width="500dp"
         android:layout_height="500dp"

@@ -1,4 +1,4 @@
-package com.luomantic.program_view_framework.view;
+package com.luomantic.program_view_framework.ui.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
