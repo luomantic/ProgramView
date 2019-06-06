@@ -8,12 +8,12 @@
 		<ITEMS>
 			 <ITEM>
 				<FILE filename="/3/000.txt"  filetype="68"/>
-				<SHOWFORMAT showtype="0" InType="0" inSpeed="4" stayTime="0"/>
+				<SHOWFORMAT showtype="0" InType="0" inSpeed="4" stayTime="10"/>
 			    <FONTCOLOR fontname="1" fontsize="30" textcolor="33023" backcolor="12023"/>
 			 </ITEM>
 			 <ITEM>
 				<FILE filename="/3/005.txt"  filetype="68"/>
-				<SHOWFORMAT showtype="0" InType="1" inSpeed="2" stayTime="0"/>
+				<SHOWFORMAT showtype="0" InType="1" inSpeed="2" stayTime="10"/>
 			    <FONTCOLOR fontname="2" fontsize="40" textcolor="12023" backcolor="32145"/>
 			 </ITEM>
 		</ITEMS>
@@ -24,12 +24,12 @@
 		<ITEMS>
 			 <ITEM>
 				<FILE filename="/3/003.mp4"  filetype="48"/>
-				<SHOWFORMAT showtype="0" InType="2" inSpeed="16" stayTime="0"/>
+				<SHOWFORMAT showtype="0" InType="2" inSpeed="16" stayTime="10"/>
 				<FONTCOLOR fontname="" fontsize="0" textcolor="0" backcolor="0"/>
 			 </ITEM>
 			 <ITEM>
 				<FILE filename="/3/004.mp4"  filetype="48"/>
-				<SHOWFORMAT showtype="0" InType="2" inSpeed="16" stayTime="0"/>
+				<SHOWFORMAT showtype="0" InType="2" inSpeed="16" stayTime="10"/>
 				<FONTCOLOR fontname="" fontsize="0" textcolor="0" backcolor="0"/>
 			 </ITEM>
 		</ITEMS>
@@ -40,7 +40,7 @@
 		<ITEMS>
 			<ITEM>
 				<FILE filename="/3/000.txt"  filetype="68"/>
-				<SHOWFORMAT showtype="0" InType="2" inSpeed="3" stayTime="0"/>
+				<SHOWFORMAT showtype="0" InType="2" inSpeed="3" stayTime="10"/>
 			    <FONTCOLOR fontname="1" fontsize="60" textcolor="33023" backcolor="32145"/>
 			 </ITEM>
 			 <ITEM>
@@ -55,7 +55,7 @@
 			 </ITEM>
 			 <ITEM>
 				<FILE filename="/3/003.mp4"  filetype="48"/>
-				<SHOWFORMAT showtype="0" InType="2" inSpeed="16" stayTime="0"/>
+				<SHOWFORMAT showtype="0" InType="2" inSpeed="16" stayTime="10"/>
 				<FONTCOLOR fontname="" fontsize="0" textcolor="0" backcolor="0"/>
 			 </ITEM>
 		</ITEMS>
@@ -102,7 +102,7 @@
 		<ITEMS>
 			 <ITEM>
 				<FILE filename="/3/000.txt"  filetype="68"/>
-				<SHOWFORMAT showtype="0" InType="0" inSpeed="4" stayTime="0"/>
+				<SHOWFORMAT showtype="0" InType="0" inSpeed="4" stayTime="10"/>
 			    <FONTCOLOR fontname="1" fontsize="30" textcolor="33023" backcolor="12023"/>
 			 </ITEM>
 			 <ITEM>

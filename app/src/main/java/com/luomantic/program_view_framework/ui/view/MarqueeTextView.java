@@ -17,6 +17,7 @@ import java.util.List;
  *      支持一条文字播放结束时候的监听
  *  TODO: 增加direction, 控制从右往左滚动，以及从上往下滚动 .
  *  TODO: 增加一个判断，判断是否需要文字滚动，如果不需要就正常显示 .
+ *  TODO: MarqueeTextView或其父view设置了Gravity的时候出不来，会把文字画到看不见的地方. 需另行对Gravity.CENTER进行处理
  */
 public class MarqueeTextView extends android.support.v7.widget.AppCompatTextView {
 
@@ -39,7 +40,7 @@ public class MarqueeTextView extends android.support.v7.widget.AppCompatTextView
     private float offX = 0f; // 水平方向的滚动
     private float offY = 0f; // 垂直方向的滚动
 
-    private float mStep = 0.5f; // 默认速度
+    private float mStep = 0.5f; // 默认速度（步长）
 
     private Rect mRect = new Rect();
 

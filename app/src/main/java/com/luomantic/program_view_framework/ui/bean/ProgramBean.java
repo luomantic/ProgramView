@@ -14,4 +14,10 @@ public class ProgramBean {
         this.windowList = windowList;
     }
 
+    @Override
+    public String toString() {
+        return "ProgramBean{" +
+                "windowList=" + windowList +
+                '}';
+    }
 }

@@ -12,19 +12,20 @@ import com.luomantic.program_view_framework.ui.bean.WindowBean;
 
 /**
  * 多分区的节目视图 = N * 单分区的节目视图
- * 必须设置ProgramBean, filePath
- * 必须添加的依赖：
- * ① implementation 'com.blankj:utilcode:1.23.7'
- * ② implementation 'com.github.bumptech.glide:glide:4.9.0'
- *    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
- * ③ implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.16'
- * TODO: ProgramBean只能通过构造函数传值给该view
  */
 public class MultiPartitionView extends RelativeLayout {
     private Context context;
+    private String filePath;
+    private ProgramBean programBean;
+    private Handler taskHandler = new Handler();
 
-    public MultiPartitionView(Context context) { // 代码初始化调用
-        this(context, null);
+    public MultiPartitionView(Context context, ProgramBean programBean, String filePath) { // 代码初始化调用
+        super(context);
+        this.context = context;
+        this.programBean = programBean;
+        this.filePath = filePath;
+
+        initView();
     }
 
     public MultiPartitionView(Context context, AttributeSet attrs) { // xml文件中调用
@@ -54,6 +55,7 @@ public class MultiPartitionView extends RelativeLayout {
                             @Override
                             public void run() {
                                 // TODO: 移除主分区以及所有的子分区
+                                LogUtils.e("播放时间已到期");
                             }
                         }, programBean.getWindowList().get(i).getDisplayTime() * 1000);
                     }
@@ -73,6 +75,7 @@ public class MultiPartitionView extends RelativeLayout {
 
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
                 windowBean.getWidth(), windowBean.getHeight());
+        layoutParams.setMargins(windowBean.getMarginLeft(), windowBean.getMarginTop(),0 ,0);
         singlePartitionView.setLayoutParams(layoutParams);
 
         // TODO: ① 可以添加布局动画  ② 可以添加悬浮窗
@@ -95,8 +98,8 @@ public class MultiPartitionView extends RelativeLayout {
 
     private void showImage(final WindowBean windowBean, final SinglePartitionView singlePartitionView) {
         singlePartitionView.showImage();
-        // TODO: 设置普通图片
-        String path = getFilePath() + windowBean.getItemList().get(windowBean.getItemIndex()).getFileName();
+        // 设置普通图片
+        String path = filePath + windowBean.getItemList().get(windowBean.getItemIndex()).getFileName();
         singlePartitionView.setGlideImage(context, path);
 
         taskHandler.postDelayed(new Runnable() {
@@ -109,8 +112,8 @@ public class MultiPartitionView extends RelativeLayout {
 
     private void showGif(final WindowBean windowBean, final SinglePartitionView singlePartitionView) {
         singlePartitionView.showImage();
-        // TODO： 设置gif
-        String path = getFilePath() + windowBean.getItemList().get(windowBean.getItemIndex()).getFileName();
+        // 设置gif
+        String path = filePath + windowBean.getItemList().get(windowBean.getItemIndex()).getFileName();
         singlePartitionView.setGifDrawableImage(path);
 
         taskHandler.postDelayed(new Runnable() {
@@ -123,7 +126,9 @@ public class MultiPartitionView extends RelativeLayout {
 
     private void showVideo(final WindowBean windowBean, final SinglePartitionView singlePartitionView) {
         singlePartitionView.showVideo();
-        String path = getFilePath() + windowBean.getItemList().get(windowBean.getItemIndex()).getFileName();
+        String path = filePath + windowBean.getItemList().get(windowBean.getItemIndex()).getFileName();
+//        File file = new File(path);
+//        LogUtils.e(file.exists());
         singlePartitionView.setVideoPath(path);
         // TODO: 将VideoView的背景设置成视频的第一帧跟最后一帧, 防黑屏
         singlePartitionView.setVideoCompleteListener(new SinglePartitionView.OnVideoCompleteListener() {
@@ -140,12 +145,12 @@ public class MultiPartitionView extends RelativeLayout {
         singlePartitionView.showText();
 
         // TODO: 把readFile2String抽出来，不依赖AndroidUtilCodes
-        String text = FileIOUtils.readFile2String(getFilePath() + windowBean.getItemList().get(windowBean.getItemIndex()).getFileName());
+        String text = FileIOUtils.readFile2String(filePath + windowBean.getItemList().get(windowBean.getItemIndex()).getFileName());
 
         // 读取文字并设置
         singlePartitionView.setText(text);
         singlePartitionView.setTextSize(windowBean.getItemList().get(windowBean.getItemIndex()).getFontSize());
-        singlePartitionView.setTextColor(windowBean.getItemList().get(windowBean.getItemIndex()).getTextColor());
+//        singlePartitionView.setTextColor(windowBean.getItemList().get(windowBean.getItemIndex()).getTextColor());
 
         taskHandler.postDelayed(new Runnable() {
             @Override
@@ -164,9 +169,10 @@ public class MultiPartitionView extends RelativeLayout {
 
                 if (windowBean.getConfigType() == 0) { // 按次数播放
                     windowBean.setPlayedTimes(windowBean.getPlayedTimes() + 1);
+                    LogUtils.e(windowBean.getPlayedTimes());
                     if (windowBean.getPlayedTimes() == windowBean.getDisplayTime()) {
-                        // TODO: 所有的次数已经播放完了
-                        LogUtils.e("没有播放次数了");
+
+                        LogUtils.e("没有播放次数了" + windowBean.getDisplayTime());
                         initPartitionChildView(windowBean, singlePartitionView);
                     } else {
                         initPartitionChildView(windowBean, singlePartitionView);
@@ -186,32 +192,5 @@ public class MultiPartitionView extends RelativeLayout {
             }
         }
     }
-
-    private Handler taskHandler = new Handler();
-
-    //--------------------------- 对外提供的接口方法,各接口可按需拓展 【必需实现的方法】----------------------------------------
-    private ProgramBean programBean;
-
-    public void setProgramBean(ProgramBean programData) {
-        this.programBean = programData;
-        requestLayout();
-    }
-
-    public ProgramBean getProgramBean() {
-        return programBean;
-    }
-
-    private String filePath;
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-        requestLayout();
-    }
-
-    public String getFilePath() {
-        return filePath;
-    }
-
-    //--------------------------- 对外提供的接口方法,各接口可按需拓展 【非必需实现的方法】----------------------------------------
 
 }

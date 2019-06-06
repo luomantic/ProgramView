@@ -74,4 +74,18 @@ public class ItemBean {
     public void setBackColor(int backColor) {
         this.backColor = backColor;
     }
+
+    @Override
+    public String toString() {
+        return "ItemBean{" +
+                "inType=" + inType +
+                ", inSpeed=" + inSpeed +
+                ", stayTime=" + stayTime +
+                ", fontName='" + fontName + '\'' +
+                ", fontSize=" + fontSize +
+                ", textColor=" + textColor +
+                ", backColor=" + backColor +
+                ", fileName='" + fileName + '\'' +
+                '}';
+    }
 }

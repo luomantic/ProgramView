@@ -1,6 +1,5 @@
 package com.luomantic.program_view_framework.ui.view;
 
-import android.animation.LayoutTransition;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
@@ -8,15 +7,22 @@ import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.VideoView;
 
+import com.bumptech.glide.Glide;
+
+import java.io.File;
+import java.io.IOException;
+
+import pl.droidsonroids.gif.GifDrawable;
+
 /**
- * 单个分区节目视图
- * TODO: 我擦MarqueeTextView出不来，需要给MarqueeTextView传x,y的参数，否则画的时候，会把文字画到看不见的地方.
+ * 单分区的节目视图
+ * 注意：
+ * 视频分辨率不能大于屏幕分辨率，否则会出现can't play this video弹框
  */
 public class SinglePartitionView extends RelativeLayout {
-    private TextView textView;
+    private MarqueeTextView textView;
     private ImageView imageView;
     private VideoView videoView;
 
@@ -35,7 +41,7 @@ public class SinglePartitionView extends RelativeLayout {
 
     private void initView(Context context) {
         if (null == textView) {
-            textView = new TextView(context);
+            textView = new MarqueeTextView(context);
         }
         if (null == imageView) {
             imageView = new ImageView(context);
@@ -54,6 +60,7 @@ public class SinglePartitionView extends RelativeLayout {
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
+                videoView.stopPlayback();
                 onVideoCompleteListener.onVideoComplete();
             }
         });
@@ -67,7 +74,7 @@ public class SinglePartitionView extends RelativeLayout {
 
     /*------------------------ TextView  相关 -----------------------*/
 
-    public void setText(String text){
+    public void setText(String text) {
         textView.setText(text);
     }
 
@@ -79,10 +86,6 @@ public class SinglePartitionView extends RelativeLayout {
         textView.setTextSize(textSize);
     }
 
-    public void setTextGravity(int textGravity){
-        textView.setGravity(textGravity);
-    }
-
     /*------------------------ ImageView 相关 -----------------------*/
 
     public void setImageDrawable(int resId) {
@@ -90,18 +93,23 @@ public class SinglePartitionView extends RelativeLayout {
     }
 
     public void setGlideImage(Context context, String imagePath) {
-//        Glide.with(getApplicationContext())
-//                .load(file)
+        Glide.with(context)
+                .load(new File(imagePath))
 //                .transition(DrawableTransitionOptions.withCrossFade(2000)) // 适用于Drawable，过渡动画持续600ms
 //                .transition(BitmapTransitionOptions.withCrossFade(2000))   // 适用于Bitmap，过渡动画持续600ms
 //                .transition(GenericTransitionOptions.with(R.anim.zoom_in))   // 补间动画，适用于自定义动画效果，传入animationId
 //                .transition(GenericTransitionOptions.with(animator)) // 属性动画
-//                .into(imageView);
+                .into(imageView);
     }
 
     public void setGifDrawableImage(String imagePath) {
-//        GifDrawable gifDrawable = new GifDrawable(root_path + itemList.get(windowBean.getItemListPosition()).getFileName());
-//        imageView.setImageDrawable(gifDrawable);
+        GifDrawable gifDrawable = null;
+        try {
+            gifDrawable = new GifDrawable(imagePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        imageView.setImageDrawable(gifDrawable);
 
         // TODO: 记得添加 recycle() - 释放内存和Bitmap的作用方法一样
         //isRecycled() - 检查是否已经被回收
@@ -160,7 +168,7 @@ public class SinglePartitionView extends RelativeLayout {
         imageView.setVisibility(GONE);
     }
 
-    public void hideAllViews(){
+    public void hideAllViews() {
         textView.setVisibility(GONE);
         imageView.setVisibility(GONE);
         videoView.setVisibility(GONE);

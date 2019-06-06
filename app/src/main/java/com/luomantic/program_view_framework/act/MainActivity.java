@@ -1,23 +1,22 @@
 package com.luomantic.program_view_framework.act;
 
+import android.Manifest;
+import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.blankj.utilcode.util.FileIOUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ResourceUtils;
+import com.blankj.utilcode.util.ScreenUtils;
 import com.google.gson.Gson;
 import com.luomantic.program_view_framework.R;
 import com.luomantic.program_view_framework.bean.ConfigBean;
 import com.luomantic.program_view_framework.ui.bean.ItemBean;
 import com.luomantic.program_view_framework.ui.bean.ProgramBean;
 import com.luomantic.program_view_framework.ui.bean.WindowBean;
-import com.luomantic.program_view_framework.ui.view.MarqueeTextView;
 import com.luomantic.program_view_framework.ui.view.MultiPartitionView;
-import com.luomantic.program_view_framework.ui.view.SinglePartitionView;
 
 import org.json.JSONException;
 import org.json.XML;
@@ -25,46 +24,45 @@ import org.json.XML;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.luomantic.program_view_framework.utils.LuoUtils.checkPermissionAllGranted;
+
 public class MainActivity extends AppCompatActivity {
 
-    private MultiPartitionView multiPartitionView;
-    private SinglePartitionView singlePartitionView;
-    private RelativeLayout rootLayout;
+    private String[] permissions = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ScreenUtils.setFullScreen(this);
         setContentView(R.layout.activity_main);
 
+        if (checkPermissionAllGranted(this, permissions)) {
+            initApp();
+        }
+    }
+
+    private void initApp() {
         initData();
+
+        LogUtils.e(programBean.toString());
+
         initView();
     }
 
     private void initView() {
         // 创建自定义视图
 
+        RelativeLayout rootLayout = findViewById(R.id.rl_root);
 
-
-//        programView = findViewById(R.id.program_view);
-
-//        rootLayout = findViewById(R.id.rl_root);
-//        MarqueeTextView textView = new MarqueeTextView(this);
-//        textView.setText("健身房๑Ő௰Ő๑)曾经瘦过，你也是厉害！副书记阿里阿萨德水电费");
-//        rootLayout.addView(textView);
-
-//        programView = new ProgramView(this);
-//        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(200, 100);
-//        layoutParams.setMargins(10, 300, 0, 0);
-//        programView.setLayoutParams(layoutParams);
-//
-//        rootLayout.addView(programView);
-//
-//        programView.setText("法拉盛多来几个狼藉怕讲故事的菩萨的");
-//        programView.setTextGravity(Gravity.CENTER);
-//        programView.showText();
-//
-//        programView.setImageDrawable(R.mipmap.ic_launcher);
-//        programView.showImage();
+        MultiPartitionView multiPartitionView = new MultiPartitionView(this, programBean, Environment.getExternalStorageDirectory().getPath());
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+        layoutParams.setMargins(50, 100, 0, 0);
+        multiPartitionView.setLayoutParams(layoutParams);
+        rootLayout.addView(multiPartitionView);
     }
 
     private void initData() {
@@ -79,9 +77,8 @@ public class MainActivity extends AppCompatActivity {
 
         ConfigBean configBean = new Gson().fromJson(json, ConfigBean.class);
         initProgramBean(configBean);
-
-        // 将programBean传给multi 测试
     }
+
     private ProgramBean programBean = new ProgramBean();
     private List<WindowBean> windowList = new ArrayList<>();
 
@@ -91,12 +88,6 @@ public class MainActivity extends AppCompatActivity {
         addSubWindow(configBean);
 
         programBean.setWindowList(windowList);
-
-        LogUtils.e(programBean.getWindowList().size());
-
-        multiPartitionView = findViewById(R.id.program_layout);
-        multiPartitionView.setProgramBean(programBean);
-        multiPartitionView.setFilePath(Environment.getExternalStorageDirectory().getPath());
     }
 
     private void addSubWindow(ConfigBean configBean) {
@@ -121,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                 itemBean.setBackColor(configBean.getWINDOWS().getSUB_WINDOW().get(i).getITEMS().getITEM().get(j).getFONTCOLOR().getBackcolor());
                 itemBean.setFileName(configBean.getWINDOWS().getSUB_WINDOW().get(i).getITEMS().getITEM().get(j).getFILE().getFilename());
 
-                windowBean.setItemList(itemList);
+                itemList.add(itemBean);
             }
 
             windowBean.setItemList(itemList);
@@ -147,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             itemBean.setInType(configBean.getWINDOWS().getMAIN_WINDOW().getITEMS().getITEM().get(i).getSHOWFORMAT().getInType());
             itemBean.setInSpeed(configBean.getWINDOWS().getMAIN_WINDOW().getITEMS().getITEM().get(i).getSHOWFORMAT().getInSpeed());
             itemBean.setStayTime(configBean.getWINDOWS().getMAIN_WINDOW().getITEMS().getITEM().get(i).getSHOWFORMAT().getStayTime());
-            itemBean.setFontName(configBean.getWINDOWS().getMAIN_WINDOW().getITEMS().getITEM().get(i).getFONTCOLOR().getFontname()+"");
+            itemBean.setFontName(configBean.getWINDOWS().getMAIN_WINDOW().getITEMS().getITEM().get(i).getFONTCOLOR().getFontname() + "");
             itemBean.setFontSize(configBean.getWINDOWS().getMAIN_WINDOW().getITEMS().getITEM().get(i).getFONTCOLOR().getFontsize());
             itemBean.setTextColor(configBean.getWINDOWS().getMAIN_WINDOW().getITEMS().getITEM().get(i).getFONTCOLOR().getTextcolor());
             itemBean.setBackColor(configBean.getWINDOWS().getMAIN_WINDOW().getITEMS().getITEM().get(i).getFONTCOLOR().getBackcolor());

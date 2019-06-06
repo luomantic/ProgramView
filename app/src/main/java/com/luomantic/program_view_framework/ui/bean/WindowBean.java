@@ -94,4 +94,20 @@ public class WindowBean {
     public void setItemList(List<ItemBean> itemList) {
         this.itemList = itemList;
     }
+
+    @Override
+    public String toString() {
+        return "WindowBean{" +
+                "marginLeft=" + marginLeft +
+                ", marginTop=" + marginTop +
+                ", width=" + width +
+                ", height=" + height +
+                ", itemIndex=" + itemIndex +
+                ", playedTimes=" + playedTimes +
+                ", isMainWindow=" + isMainWindow +
+                ", configType=" + configType +
+                ", displayTime=" + displayTime +
+                ", itemList=" + itemList +
+                '}';
+    }
 }
