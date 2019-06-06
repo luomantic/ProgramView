@@ -31,9 +31,20 @@ public class MarqueeTextView extends android.support.v7.widget.AppCompatTextView
         this.listener = listener;
     }
 
-    private String mText; // 内容
-    private float mTextSize; // 文字大小
-    private Typeface mTypeFace; // 字体
+    /**
+     * 文字内容
+     */
+    private String text;
+
+    /**
+     * 文字大小
+     */
+    private float textSize;
+
+    /**
+     * 字体
+     */
+    private Typeface typeface;
 
     private int mOrientation = 0; // 文字滚动方向，0表示水平方向，1表示垂直方向
 
@@ -60,16 +71,16 @@ public class MarqueeTextView extends android.support.v7.widget.AppCompatTextView
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        mText = getText().toString();
-        mTextSize = getTextSize();
+        text = getText().toString();
+        textSize = getTextSize();
 
-        if (mTypeFace!=null) {
-            mPaint.setTypeface(mTypeFace);
+        if (typeface !=null) {
+            mPaint.setTypeface(typeface);
         }
 
         mPaint.setColor(getCurrentTextColor());
-        mPaint.setTextSize(mTextSize);
-        mPaint.getTextBounds(mText, 0, mText.length(), mRect);
+        mPaint.setTextSize(textSize);
+        mPaint.getTextBounds(text, 0, text.length(), mRect);
     }
 
     @Override
@@ -79,8 +90,8 @@ public class MarqueeTextView extends android.support.v7.widget.AppCompatTextView
             x = getMeasuredWidth() - offX;
             y = (getMeasuredHeight() >> 1) + (mPaint.descent() - mPaint.ascent()) / 2;
 
-            if (mText != null) { // 在代码里面设置的setText, 可能会在onMeasure以后才获取到值.
-                canvas.drawText(mText, x, y, mPaint);
+            if (text != null) { // 在代码里面设置的setText, 可能会在onMeasure以后才获取到值.
+                canvas.drawText(text, x, y, mPaint);
                 offX += mStep;
                 if (offX >= getMeasuredWidth() + mRect.width()) {
                     offX = 0f;
@@ -94,8 +105,8 @@ public class MarqueeTextView extends android.support.v7.widget.AppCompatTextView
             x = 0;
             y = (getMeasuredHeight() >> 1) + (mPaint.descent() - mPaint.ascent()) / 2 - offY;
 
-            if (mText != null) {
-                List<String> textList = getTextList(mText);
+            if (text != null) {
+                List<String> textList = getTextList(text);
                 float space = mPaint.getFontSpacing();
 
                 for (int i = 0; i < textList.size(); i++) {
@@ -125,7 +136,7 @@ public class MarqueeTextView extends android.support.v7.widget.AppCompatTextView
         int textLength = mText.length();
         int width = getMeasuredWidth();
 
-        float limit = width / mTextSize;
+        float limit = width / textSize;
         if (limit >= textLength) {
             list.add(mText);
         } else {
@@ -151,7 +162,7 @@ public class MarqueeTextView extends android.support.v7.widget.AppCompatTextView
     }
 
     public void setFont(Typeface typeface) {
-        mTypeFace = typeface;
+        this.typeface = typeface;
     }
 }
 

@@ -2,18 +2,61 @@ package com.luomantic.program_view_framework.ui.bean;
 
 import java.util.List;
 
+/**
+ * 窗口基类 - 包含单分区的详细信息，包括分区的宽、高、左边距、上边距、列表索引、主分区标记、节目播放类型、节目播放次数。
+ */
 public class WindowBean {
 
+    /**
+     * 左边距
+     */
     private int marginLeft;
+
+    /**
+     * 上边距
+     */
     private int marginTop;
+
+    /**
+     * 单分区宽度
+     */
     private int width;
+
+    /**
+     * 单分区高度
+     */
     private int height;
-    private int itemIndex; // 标记item列表的位置 这个也可以
-    private int playedTimes; // item 列表播已播放完几次
-    private boolean isMainWindow; // 是否是主分区
-    private int configType; // 播放类型，按时间播放或按次数播放
-    private int displayTime; // 播放次数或时间
-    private List<ItemBean> itemList; // 每个window包含多个item
+
+    /**
+     * 列表索引 - 从0开始播放，记录要播放的Item在ItemList中的位置
+     */
+    private int itemIndex;
+
+    /**
+     * 记录ItemList已播放完的次数
+     */
+    private int playedTimes;
+
+    /**
+     * 主分区标记 - 标记是否是主分区
+     */
+    private boolean isMainWindow;
+
+    /**
+     * 节目的播放类型，0表示按次数播放，1表示按时间播放
+     */
+    private int configType;
+
+    /**
+     * ① 按次数播放：ItemList需要播放的总次数
+     * ② 按时间播放：ItemList需要播放的总时长
+     */
+    private int displayTime;
+
+    /**
+     * 节目列表 - 保存每个单分区的节目内容，单分区有多个节目
+     */
+    private List<ItemBean> itemList;
 
     public int getItemIndex() {
         return itemIndex;

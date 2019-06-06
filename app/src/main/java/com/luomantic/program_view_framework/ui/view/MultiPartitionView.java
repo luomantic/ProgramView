@@ -1,6 +1,7 @@
 package com.luomantic.program_view_framework.ui.view;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
@@ -75,7 +76,7 @@ public class MultiPartitionView extends RelativeLayout {
 
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
                 windowBean.getWidth(), windowBean.getHeight());
-        layoutParams.setMargins(windowBean.getMarginLeft(), windowBean.getMarginTop(),0 ,0);
+        layoutParams.setMargins(windowBean.getMarginLeft(), windowBean.getMarginTop(), 0, 0);
         singlePartitionView.setLayoutParams(layoutParams);
 
         // TODO: ① 可以添加布局动画  ② 可以添加悬浮窗
@@ -131,9 +132,9 @@ public class MultiPartitionView extends RelativeLayout {
 //        LogUtils.e(file.exists());
         singlePartitionView.setVideoPath(path);
         // TODO: 将VideoView的背景设置成视频的第一帧跟最后一帧, 防黑屏
-        singlePartitionView.setVideoCompleteListener(new SinglePartitionView.OnVideoCompleteListener() {
+        singlePartitionView.setVideoCompleteListener(new SinglePartitionView.VideoFinishedListener() {
             @Override
-            public void onVideoComplete() {
+            public void onVideoFinished() {
                 singlePartitionView.setVideoPause();
                 showNextItem(windowBean, singlePartitionView);
             }
@@ -150,14 +151,17 @@ public class MultiPartitionView extends RelativeLayout {
         // 读取文字并设置
         singlePartitionView.setText(text);
         singlePartitionView.setTextSize(windowBean.getItemList().get(windowBean.getItemIndex()).getFontSize());
-//        singlePartitionView.setTextColor(windowBean.getItemList().get(windowBean.getItemIndex()).getTextColor());
-
-        taskHandler.postDelayed(new Runnable() {
+        singlePartitionView.setTextColor(windowBean.getItemList().get(windowBean.getItemIndex()).getTextColor());
+        singlePartitionView.setTextSpeed(windowBean.getItemList().get(windowBean.getItemIndex()).getInSpeed());
+        singlePartitionView.setTextOrientation(windowBean.getItemList().get(windowBean.getItemIndex()).getInType());
+        singlePartitionView.setTextFont(Typeface.MONOSPACE); // 设置字体，系统提供四种
+//        singlePartitionView.setTextFont(Typeface.createFromAsset(context.getAssets(), "fonts/helvetica.ttf")); // 设置asserts下的字体
+        singlePartitionView.setTextScrollFinishedListener(new SinglePartitionView.TextScrollFinishedListener() {
             @Override
-            public void run() {
+            public void onScrollFinished() {
                 showNextItem(windowBean, singlePartitionView);
             }
-        }, windowBean.getItemList().get(windowBean.getItemIndex()).getStayTime() * 1000);
+        });
     }
 
     private void showNextItem(WindowBean windowBean, SinglePartitionView singlePartitionView) {
