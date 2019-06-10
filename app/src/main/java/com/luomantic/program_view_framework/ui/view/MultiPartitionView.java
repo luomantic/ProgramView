@@ -61,7 +61,7 @@ public class MultiPartitionView extends RelativeLayout {
                         }, programBean.getWindowList().get(i).getDisplayTime() * 1000);
                     }
                 } else {
-                    // 子分区 windowIndex  itemIndex
+                    // 子分区 windowIndex  itemIndex // TODO: 获取到所有的VideoView, 添加release方法.
                     initPartitionView(programBean.getWindowList().get(i));
                 }
             }

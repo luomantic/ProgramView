@@ -4,20 +4,22 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.media.MediaPlayer;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.VideoView;
 
 import com.blankj.utilcode.util.ColorUtils;
 import com.bumptech.glide.Glide;
+import com.luomantic.program_view_framework.ui.ijkvideo.IjkVideoView;
 
 import java.io.File;
 import java.io.IOException;
 
 import pl.droidsonroids.gif.GifDrawable;
+import tv.danmaku.ijk.media.player.IMediaPlayer;
+import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 /**
  * 单分区的节目视图
@@ -27,7 +29,9 @@ import pl.droidsonroids.gif.GifDrawable;
 public class SinglePartitionView extends RelativeLayout {
     private MarqueeTextView textView;
     private ImageView imageView;
-    private VideoView videoView;
+    //private VideoView videoView;
+    private IjkMediaPlayer ijkMediaPlayer; // 用于拓展直播等.
+    private IjkVideoView ijkVideoView;
 
     public SinglePartitionView(Context context) {
         this(context, null);
@@ -49,17 +53,18 @@ public class SinglePartitionView extends RelativeLayout {
         if (null == imageView) {
             imageView = new ImageView(context);
         }
-        if (null == videoView) {
-            videoView = new VideoView(context);
+        if (null == ijkVideoView) {
+            //videoView = new VideoView(context);
+            ijkVideoView = new IjkVideoView(context);
         }
         this.addView(textView);
         this.addView(imageView);
-        this.addView(videoView);
+        this.addView(ijkVideoView);
 
         // 设置各布局填充RelativeLayout
         textView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         imageView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        videoView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        ijkVideoView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         textView.setOnScrollFinishedListener(new MarqueeTextView.onScrollFinishedListener() {
             @Override
@@ -67,13 +72,30 @@ public class SinglePartitionView extends RelativeLayout {
                 textScrollFinishedListener.onScrollFinished();
             }
         });
-        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+        if (null == ijkMediaPlayer) {
+//            ijkMediaPlayer = new IjkMediaPlayer();
+        }
+
+//        IjkMediaPlayer.loadLibrariesOnce(null);
+//        IjkMediaPlayer.native_profileBegin("libijkplayer.so");
+        ijkVideoView.setOnCompletionListener(new IMediaPlayer.OnCompletionListener() {
             @Override
-            public void onCompletion(MediaPlayer mp) {
-                videoView.stopPlayback();
+            public void onCompletion(IMediaPlayer iMediaPlayer) {
+                ijkVideoView.stopPlayback();
+                ijkVideoView.stopBackgroundPlay();
+                ijkVideoView.pause();
+                //ijkVideoView.release(true);
                 videoFinishedListener.onVideoFinished();
             }
         });
+//        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+//            @Override
+//            public void onCompletion(MediaPlayer mp) {
+//                videoView.stopPlayback();
+//                videoFinishedListener.onVideoFinished();
+//            }
+//        });
 
         // TODO: 添加布局动画的封装
 
@@ -184,21 +206,24 @@ public class SinglePartitionView extends RelativeLayout {
      * @param path 本地视频存储路径
      */
     public void setVideoPath(String path) {
-        videoView.setVideoPath(path);
+        //videoView.setVideoPath(path);
+        ijkVideoView.setVideoURI(Uri.parse(path));
     }
 
     /**
      * 暂停播放视频
      */
     public void setVideoPause() {
-        videoView.pause();
+        //videoView.pause();
+        ijkVideoView.pause();
     }
 
     /**
      * 开始播放视频
      */
     public void setVideoStart() {
-        videoView.start();
+        //videoView.start();
+        ijkVideoView.start(); // TODO: ijkVideoPlayer显示不出来
     }
 
     /**
@@ -206,7 +231,8 @@ public class SinglePartitionView extends RelativeLayout {
      * @return 视频总毫秒长度
      */
     public int getVideoDuration() {
-        return videoView.getDuration();
+        //return videoView.getDuration();
+        return ijkVideoView.getDuration();
     }
 
     /**
@@ -214,8 +240,11 @@ public class SinglePartitionView extends RelativeLayout {
      * @param drawable drawable类型的图片
      */
     public void setVideoBackground(Drawable drawable) {
-        videoView.setBackground(drawable);
+        //videoView.setBackground(drawable);
+//        ijkVideoView.setBackground(drawable);
+        ijkVideoView.setBackgroundColor(Color.BLUE);
     }
+
 
     private VideoFinishedListener videoFinishedListener;
 
@@ -235,7 +264,7 @@ public class SinglePartitionView extends RelativeLayout {
     public void showText() {
         textView.setVisibility(VISIBLE);
         imageView.setVisibility(GONE);
-        videoView.setVisibility(GONE);
+        ijkVideoView.setVisibility(GONE);
     }
 
     /**
@@ -244,14 +273,14 @@ public class SinglePartitionView extends RelativeLayout {
     public void showImage() {
         imageView.setVisibility(VISIBLE);
         textView.setVisibility(GONE);
-        videoView.setVisibility(GONE);
+        ijkVideoView.setVisibility(GONE);
     }
 
     /**
      * 显示视频，并隐藏文本跟图片
      */
     public void showVideo() {
-        videoView.setVisibility(VISIBLE);
+        ijkVideoView.setVisibility(VISIBLE);
         textView.setVisibility(GONE);
         imageView.setVisibility(GONE);
     }
@@ -262,7 +291,7 @@ public class SinglePartitionView extends RelativeLayout {
     public void hideAllViews() {
         textView.setVisibility(GONE);
         imageView.setVisibility(GONE);
-        videoView.setVisibility(GONE);
+        ijkVideoView.setVisibility(GONE);
     }
 
 }
