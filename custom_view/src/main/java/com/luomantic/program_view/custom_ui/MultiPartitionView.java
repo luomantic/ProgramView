@@ -1,4 +1,4 @@
-package com.luomantic.program_view_framework.ui.view;
+package com.luomantic.program_view.custom_ui;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -8,8 +8,8 @@ import android.widget.RelativeLayout;
 
 import com.blankj.utilcode.util.FileIOUtils;
 import com.blankj.utilcode.util.LogUtils;
-import com.luomantic.program_view_framework.ui.bean.ProgramBean;
-import com.luomantic.program_view_framework.ui.bean.WindowBean;
+import com.luomantic.program_view.bean.ProgramBean;
+import com.luomantic.program_view.bean.WindowBean;
 
 /**
  * 多分区的节目视图 = N * 单分区的节目视图
@@ -74,7 +74,7 @@ public class MultiPartitionView extends RelativeLayout {
         SinglePartitionView singlePartitionView = new SinglePartitionView(context);
         this.addView(singlePartitionView);
 
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+        LayoutParams layoutParams = new LayoutParams(
                 windowBean.getWidth(), windowBean.getHeight());
         layoutParams.setMargins(windowBean.getMarginLeft(), windowBean.getMarginTop(), 0, 0);
         singlePartitionView.setLayoutParams(layoutParams);

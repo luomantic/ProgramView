@@ -1,4 +1,4 @@
-package com.luomantic.program_view_framework.ui.bean;
+package com.luomantic.program_view.bean;
 
 import java.util.List;
 

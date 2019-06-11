@@ -6,12 +6,12 @@
     tools:context=".act.MainAct2"
     android:id="@+id/rl_root2">
 
-    <!--<com.luomantic.program_view_framework.ui.ijkvideo.IjkVideoView-->
+    <!--<com.luomantic.cutom.ui.ijkvideo.IjkVideoView-->
         <!--android:id="@+id/video_view"-->
         <!--android:background="#111"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent" />-->
-    <!--<com.luomantic.program_view_framework.ui.view.MultiPartitionView-->
+    <!--<com.luomantic.cutom.ui.view.MultiPartitionView-->
         <!--android:id="@+id/program_layout"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent"-->

@@ -1,4 +1,4 @@
-package com.luomantic.program_view_framework.ui.view;
+package com.luomantic.program_view.custom_ui;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -58,9 +58,9 @@ public class SinglePartitionView extends RelativeLayout {
         this.addView(videoView);
 
         // 设置各布局填充RelativeLayout
-        textView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        imageView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        videoView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        textView.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        imageView.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        videoView.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         textView.setOnScrollFinishedListener(new MarqueeTextView.onScrollFinishedListener() {
             @Override

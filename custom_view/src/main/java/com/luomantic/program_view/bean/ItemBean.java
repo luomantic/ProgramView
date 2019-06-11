@@ -1,4 +1,4 @@
-package com.luomantic.program_view_framework.ui.bean;
+package com.luomantic.program_view.bean;
 
 /**
  * 节目基类 - 包含每一条节目的详细信息

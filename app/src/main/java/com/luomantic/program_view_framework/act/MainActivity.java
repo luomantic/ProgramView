@@ -11,12 +11,12 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ResourceUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.google.gson.Gson;
+import com.luomantic.program_view.bean.ItemBean;
+import com.luomantic.program_view.bean.ProgramBean;
+import com.luomantic.program_view.bean.WindowBean;
+import com.luomantic.program_view.custom_ui.MultiPartitionView;
 import com.luomantic.program_view_framework.R;
 import com.luomantic.program_view_framework.bean.ConfigBean;
-import com.luomantic.program_view_framework.ui.bean.ItemBean;
-import com.luomantic.program_view_framework.ui.bean.ProgramBean;
-import com.luomantic.program_view_framework.ui.bean.WindowBean;
-import com.luomantic.program_view_framework.ui.view.MultiPartitionView;
 
 import org.json.JSONException;
 import org.json.XML;
