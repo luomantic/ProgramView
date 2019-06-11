@@ -6,18 +6,4 @@
     tools:context=".act.MainActivity"
     android:id="@+id/rl_root">
 
-    <!--<com.luomantic.program_view_framework.ui.view.MultiPartitionView-->
-        <!--android:id="@+id/program_layout"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:gravity="center"/>-->
-
-    <!--<com.luomantic.program_view_framework.view.ProgramView-->
-        <!--android:id="@+id/program_view"-->
-        <!--android:layout_width="100dp"-->
-        <!--android:layout_height="100dp"-->
-        <!--android:gravity="center">-->
-
-    <!--</com.luomantic.program_view_framework.view.ProgramView>-->
-
 </RelativeLayout>

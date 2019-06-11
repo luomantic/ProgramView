@@ -4,22 +4,20 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
+import android.media.MediaPlayer;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.VideoView;
 
 import com.blankj.utilcode.util.ColorUtils;
 import com.bumptech.glide.Glide;
-import com.luomantic.program_view_framework.ui.ijkvideo.IjkVideoView;
 
 import java.io.File;
 import java.io.IOException;
 
 import pl.droidsonroids.gif.GifDrawable;
-import tv.danmaku.ijk.media.player.IMediaPlayer;
-import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 /**
  * 单分区的节目视图
@@ -29,9 +27,7 @@ import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 public class SinglePartitionView extends RelativeLayout {
     private MarqueeTextView textView;
     private ImageView imageView;
-    //private VideoView videoView;
-    private IjkMediaPlayer ijkMediaPlayer; // 用于拓展直播等.
-    private IjkVideoView ijkVideoView;
+    private VideoView videoView;
 
     public SinglePartitionView(Context context) {
         this(context, null);
@@ -53,18 +49,18 @@ public class SinglePartitionView extends RelativeLayout {
         if (null == imageView) {
             imageView = new ImageView(context);
         }
-        if (null == ijkVideoView) {
-            //videoView = new VideoView(context);
-            ijkVideoView = new IjkVideoView(context);
+        if (null == videoView) {
+            videoView = new VideoView(context);
         }
+
         this.addView(textView);
         this.addView(imageView);
-        this.addView(ijkVideoView);
+        this.addView(videoView);
 
         // 设置各布局填充RelativeLayout
         textView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         imageView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        ijkVideoView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        videoView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         textView.setOnScrollFinishedListener(new MarqueeTextView.onScrollFinishedListener() {
             @Override
@@ -73,29 +69,13 @@ public class SinglePartitionView extends RelativeLayout {
             }
         });
 
-        if (null == ijkMediaPlayer) {
-//            ijkMediaPlayer = new IjkMediaPlayer();
-        }
-
-//        IjkMediaPlayer.loadLibrariesOnce(null);
-//        IjkMediaPlayer.native_profileBegin("libijkplayer.so");
-        ijkVideoView.setOnCompletionListener(new IMediaPlayer.OnCompletionListener() {
+        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
-            public void onCompletion(IMediaPlayer iMediaPlayer) {
-                ijkVideoView.stopPlayback();
-                ijkVideoView.stopBackgroundPlay();
-                ijkVideoView.pause();
-                //ijkVideoView.release(true);
+            public void onCompletion(MediaPlayer mp) {
+                videoView.stopPlayback();
                 videoFinishedListener.onVideoFinished();
             }
         });
-//        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-//            @Override
-//            public void onCompletion(MediaPlayer mp) {
-//                videoView.stopPlayback();
-//                videoFinishedListener.onVideoFinished();
-//            }
-//        });
 
         // TODO: 添加布局动画的封装
 
@@ -108,6 +88,7 @@ public class SinglePartitionView extends RelativeLayout {
 
     /**
      * 设置MarqueeTextView的文字 内容
+     *
      * @param text 文字内容
      */
     public void setText(String text) {
@@ -116,6 +97,7 @@ public class SinglePartitionView extends RelativeLayout {
 
     /**
      * 设置MarqueeTextView的文字 颜色
+     *
      * @param color 文字颜色，int类型自动转换成rgb字符串
      */
     public void setTextColor(int color) {
@@ -124,6 +106,7 @@ public class SinglePartitionView extends RelativeLayout {
 
     /**
      * 设置MarqueeTextView的文字 大小
+     *
      * @param textSize 文字大小
      */
     public void setTextSize(int textSize) {
@@ -132,14 +115,16 @@ public class SinglePartitionView extends RelativeLayout {
 
     /**
      * 设置MarqueeTextView的文字 滚动的速度
+     *
      * @param textSpeed 滚动的速度（单位：像素），表示没秒钟滚动多少像素
      */
-    public void setTextSpeed(int textSpeed){
+    public void setTextSpeed(int textSpeed) {
         textView.setSpeed(textSpeed);
     }
 
     /**
      * 设置MarqueeTextView的文字 字体
+     *
      * @param typeface 可以是系统提供的四种字体，也可以是assert下的字体，或第三方框架提供的字体
      */
     public void setTextFont(Typeface typeface) {
@@ -148,6 +133,7 @@ public class SinglePartitionView extends RelativeLayout {
 
     /**
      * 设置MarqueeTextView的文字 滚动方向
+     *
      * @param orientation 0 表示从右向左 ← ，1表示从下到上 ↑
      */
     public void setTextOrientation(int orientation) {
@@ -168,7 +154,8 @@ public class SinglePartitionView extends RelativeLayout {
 
     /**
      * 通过Glide加载静态图片
-     * @param context 上下文
+     *
+     * @param context   上下文
      * @param imagePath 本地图片存储路径
      */
     public void setGlideImage(Context context, String imagePath) {
@@ -183,6 +170,7 @@ public class SinglePartitionView extends RelativeLayout {
 
     /**
      * 通过GifDrawable加载Gif图片
+     *
      * @param imagePath 本地gif存储路径
      */
     public void setGifDrawableImage(String imagePath) {
@@ -203,46 +191,43 @@ public class SinglePartitionView extends RelativeLayout {
 
     /**
      * 设置视频路径
+     *
      * @param path 本地视频存储路径
      */
     public void setVideoPath(String path) {
-        //videoView.setVideoPath(path);
-        ijkVideoView.setVideoURI(Uri.parse(path));
+        videoView.setVideoPath(path);
     }
 
     /**
      * 暂停播放视频
      */
     public void setVideoPause() {
-        //videoView.pause();
-        ijkVideoView.pause();
+        videoView.pause();
     }
 
     /**
      * 开始播放视频
      */
     public void setVideoStart() {
-        //videoView.start();
-        ijkVideoView.start(); // TODO: ijkVideoPlayer显示不出来
+        videoView.start();
     }
 
     /**
      * 获取视频的总长度 单位是毫秒
+     *
      * @return 视频总毫秒长度
      */
     public int getVideoDuration() {
-        //return videoView.getDuration();
-        return ijkVideoView.getDuration();
+        return videoView.getDuration();
     }
 
     /**
      * 设置视频播放的背景 - 防止加载视频过渡的时候黑屏
+     *
      * @param drawable drawable类型的图片
      */
     public void setVideoBackground(Drawable drawable) {
-        //videoView.setBackground(drawable);
-//        ijkVideoView.setBackground(drawable);
-        ijkVideoView.setBackgroundColor(Color.BLUE);
+        videoView.setBackground(drawable);
     }
 
 
@@ -264,7 +249,7 @@ public class SinglePartitionView extends RelativeLayout {
     public void showText() {
         textView.setVisibility(VISIBLE);
         imageView.setVisibility(GONE);
-        ijkVideoView.setVisibility(GONE);
+        videoView.setVisibility(GONE);
     }
 
     /**
@@ -273,14 +258,14 @@ public class SinglePartitionView extends RelativeLayout {
     public void showImage() {
         imageView.setVisibility(VISIBLE);
         textView.setVisibility(GONE);
-        ijkVideoView.setVisibility(GONE);
+        videoView.setVisibility(GONE);
     }
 
     /**
      * 显示视频，并隐藏文本跟图片
      */
     public void showVideo() {
-        ijkVideoView.setVisibility(VISIBLE);
+        videoView.setVisibility(VISIBLE);
         textView.setVisibility(GONE);
         imageView.setVisibility(GONE);
     }
@@ -291,7 +276,7 @@ public class SinglePartitionView extends RelativeLayout {
     public void hideAllViews() {
         textView.setVisibility(GONE);
         imageView.setVisibility(GONE);
-        ijkVideoView.setVisibility(GONE);
+        videoView.setVisibility(GONE);
     }
 
 }
