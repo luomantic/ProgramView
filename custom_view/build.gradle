@@ -3,6 +3,25 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion 28
 
+    task makeJar(type : Copy){
+        //刪除存在的
+        delete 'build/libs/test.jar'
+        //设置拷贝的文件
+        from('build/intermediates/packaged-classes/release/')
+        //打进jar包后的文件目录
+        into('build/libs/')
+        //将classes.jar放入build/libs/目录下
+        //include，exclude参数来设置过滤
+        //我们只关心classes.jar这个文件
+        include('classes.jar')
+        //重命名
+        rename('classes.jar','test.jar')
+    }
+    makeJar.dependsOn(build)
+
+    lintOptions{
+        abortOnError false
+    }
 
     defaultConfig {
         minSdkVersion 19
@@ -19,24 +38,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-    }
-
-    task makeJar(type: Copy) {
-        //删除旧的jar包
-        delete 'build/libs/mysdk.jar'
-        //原地址
-        from('build/intermediates/bundles/release/')
-        //导出jar包的地址
-        into('build/libs/')
-        //包含的jar包
-        include('classes.jar')
-        //重命名jar包为mysdk
-        rename ('classes.jar', 'mysdk.jar')
-    }
-    makeJar.dependsOn(build)
-
-    lintOptions{
-        abortOnError false
     }
 }
 
