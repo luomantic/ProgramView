@@ -8,7 +8,7 @@
 		<ITEMS>
 			 <ITEM>
 				<FILE filename="/3/000.txt"  filetype="68"/>
-				<SHOWFORMAT showtype="0" InType="0" inSpeed="4" stayTime="10"/>
+				<SHOWFORMAT showtype="0" InType="2" inSpeed="4" stayTime="10"/>
 			    <FONTCOLOR fontname="1" fontsize="30" textcolor="33023" backcolor="12023"/>
 			 </ITEM>
 			 <ITEM>

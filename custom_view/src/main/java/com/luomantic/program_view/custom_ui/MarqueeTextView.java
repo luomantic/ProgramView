@@ -18,16 +18,17 @@ import java.util.List;
  *  TODO: 增加direction, 控制从右往左滚动，以及从上往下滚动 .
  *  TODO: 增加一个判断，判断是否需要文字滚动，如果不需要就正常显示 .
  *  TODO: MarqueeTextView或其父view设置了Gravity的时候出不来，会把文字画到看不见的地方. 需另行对Gravity.CENTER进行处理
+ *  fixme: 改用staticLayout绘制文字，或者改良自动换行处理.
  */
 public class MarqueeTextView extends android.support.v7.widget.AppCompatTextView {
 
-    private onScrollFinishedListener listener; // 文字滚动结束监听
+    private OnScrollFinishedListener listener; // 文字滚动结束监听
 
-    public interface onScrollFinishedListener {
+    public interface OnScrollFinishedListener {
         void onScrollFinished();
     }
 
-    public void setOnScrollFinishedListener(onScrollFinishedListener listener) {
+    public void setOnScrollFinishedListener(OnScrollFinishedListener listener) {
         this.listener = listener;
     }
 
@@ -85,7 +86,7 @@ public class MarqueeTextView extends android.support.v7.widget.AppCompatTextView
 
     @Override
     protected void onDraw(Canvas canvas) {
-        float x, y;
+        float x , y;
         if (mOrientation == 0) { // 水平滚动
             x = getMeasuredWidth() - offX;
             y = (getMeasuredHeight() >> 1) + (mPaint.descent() - mPaint.ascent()) / 2;
@@ -101,7 +102,7 @@ public class MarqueeTextView extends android.support.v7.widget.AppCompatTextView
                 }
                 invalidate();
             }
-        } else { // 垂直滚动
+        } else if (mOrientation == 1){ // 垂直滚动
             x = 0;
             y = (getMeasuredHeight() >> 1) + (mPaint.descent() - mPaint.ascent()) / 2 - offY;
 

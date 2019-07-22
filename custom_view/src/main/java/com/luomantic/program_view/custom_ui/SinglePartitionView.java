@@ -62,7 +62,7 @@ public class SinglePartitionView extends RelativeLayout {
         imageView.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         videoView.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
-        textView.setOnScrollFinishedListener(new MarqueeTextView.onScrollFinishedListener() {
+        textView.setOnScrollFinishedListener(new MarqueeTextView.OnScrollFinishedListener() {
             @Override
             public void onScrollFinished() {
                 textScrollFinishedListener.onScrollFinished();
